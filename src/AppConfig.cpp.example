@@ -1,0 +1,19 @@
+#include "AppConfig.h"
+
+const AppConfig::Wifi& AppConfig::wifi() {
+  static const Wifi cfg{
+    .apSsid = "ESP32-Setup",
+    .apPass = "12345678",
+
+    .staSsid = "KoliK",
+    .staPass = "58969366",
+
+    .staConnectTimeoutMs = 15000,
+    .reconnectIntervalMs = 5000,
+
+    .enableAp = true,
+    .enableSta = true
+  };
+
+  return cfg;
+}
