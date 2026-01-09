@@ -4,3 +4,5 @@
 .vscode/launch.json
 .vscode/ipch
 AppConfig.cpp
+.vscode/setting.json
+/data

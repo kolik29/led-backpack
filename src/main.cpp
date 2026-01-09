@@ -6,10 +6,10 @@
 #include "RenderMgr.h"
 #include "WebServerMgr.h"
 
+Display display(16, 16, true);
 WifiMgr wifi(AppConfig::wifi());
 RenderMgr renderer(display);
 WebServerMgr web(display, renderer, 80);
-Display display(16, 16, true);
 
 void setup() {
   Serial.begin(115200);

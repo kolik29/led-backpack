@@ -26,6 +26,10 @@ public:
   void setPixelIndex(uint16_t i, const CRGB& c);
   void setPixelXY(uint8_t x, uint8_t y, const CRGB& c);
 
+  void setFlip(bool flipX, bool flipY) { flipX_ = flipX; flipY_ = flipY; }
+  bool flipX() const { return flipX_; }
+  bool flipY() const { return flipY_; }
+
 private:
   uint16_t xyToIndex_(uint8_t x, uint8_t y) const;
 
@@ -35,4 +39,7 @@ private:
 
   uint8_t brightness_ = 64;
   CRGB leds_[MAX_LEDS];
+
+  bool flipX_ = false;
+  bool flipY_ = true;
 };

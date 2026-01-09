@@ -300,7 +300,7 @@ void ApiHandlers::handleEffect_() {
 
         if (s == "global") {
           renderer_.effects().colorShift().setStyle(ColorShiftEffect::Style::Global);
-        } else if (s == "perpixel" || s == "per_pixel") {
+        } else if (s == "perpixel") {
           renderer_.effects().colorShift().setStyle(ColorShiftEffect::Style::PerPixel);
         } else {
           sendJson_(400, "{\"ok\":false,\"error\":\"colorshift.style must be global|perpixel\"}");

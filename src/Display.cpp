@@ -46,9 +46,12 @@ void Display::setPixelIndex(uint16_t i, const CRGB& c) {
 
 void Display::setPixelXY(uint8_t x, uint8_t y, const CRGB& c) {
   if (x >= width_ || y >= height_) return;
-  uint16_t idx = xyToIndex_(x, y);
-  if (idx >= ledsCount()) return;
-  leds_[idx] = c;
+
+  if (flipX_) x = (uint8_t)((width_ - 1) - x);
+  if (flipY_) y = (uint8_t)((height_ - 1) - y);
+
+  const uint16_t i = xyToIndex_(x, y);
+  leds_[i] = c;
 }
 
 uint16_t Display::xyToIndex_(uint8_t x, uint8_t y) const {
