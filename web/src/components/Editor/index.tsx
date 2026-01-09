@@ -1,16 +1,16 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Frame from "../../types/Frame";
-import { drawFrame, emptyFrame } from "../../helpers/Frame";
-import { ActionIcon, Button, ColorPicker, Tooltip } from "@mantine/core";
-import { IconPencil, IconEraser } from "@tabler/icons-react";
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import Frame from '../../types/Frame';
+import { drawFrame, emptyFrame } from '../../helpers/Frame';
+import { ActionIcon, Button, ColorPicker, Tooltip } from '@mantine/core';
+import { IconPencil, IconEraser } from '@tabler/icons-react';
 import styles from './index.module.sass';
-import { sendFrame } from "../../Api/Requests";
-import { QUICK_COLORS } from "../../storage/Colors";
+import { sendFrame } from '../../Api/Requests';
+import { QUICK_COLORS } from '../../storage/Colors';
 
 const Editor = () => {
   const [frame, setFrame] = useState<Frame>(emptyFrame(16, 16));
-  const [color, setColor] = useState("#ff0000");
-  const [tool, setTool] = useState<"pencil" | "eraser">("pencil");
+  const [color, setColor] = useState('#ff0000');
+  const [tool, setTool] = useState<'pencil' | 'eraser'>('pencil');
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const drawingRef = useRef(false);
@@ -37,7 +37,7 @@ const Editor = () => {
     if (x < 0 || y < 0 || x >= frame.w || y >= frame.h) return;
 
     const i = y * frame.w + x;
-    const nextColor = tool === "eraser" ? "#000000" : color;
+    const nextColor = tool === 'eraser' ? '#000000' : color;
 
     if (frame.pixels[i] === nextColor) return;
 
@@ -96,7 +96,7 @@ const Editor = () => {
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.imageSmoothingEnabled = false;
@@ -117,10 +117,10 @@ const Editor = () => {
     const ro = new ResizeObserver(() => resizeCanvas());
     ro.observe(wrap);
 
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
     return () => {
       ro.disconnect();
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, [frame.w, frame.h]);
 
@@ -129,7 +129,7 @@ const Editor = () => {
   }, [frame.w, frame.h]);
 
   return <>
-    <div className='wrapper'>
+    <div className="wrapper">
       <div className={styles.draw}>
         <Tooltip label="Pencil">
           <ActionIcon
@@ -154,7 +154,7 @@ const Editor = () => {
 
       <div
         ref={wrapRef}
-        className='canvas'
+        className="canvas"
         style={{ aspectRatio: `${frame.w} / ${frame.h}` }}
       >
         <canvas

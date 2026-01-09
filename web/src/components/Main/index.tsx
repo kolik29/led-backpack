@@ -3,7 +3,7 @@ import Editor from '../Editor';
 import Text from '../Text';
 import Icons from '../Icons';
 import Effects from '../Effects';
-import styles from "./index.module.sass";
+import styles from './index.module.sass';
 import Settings from '../Settings';
 
 const Main = () => {

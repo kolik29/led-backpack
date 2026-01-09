@@ -1,16 +1,16 @@
-import { ApiError } from "../types/ApiError";
+import { ApiError } from '../types/ApiError';
 
 async function parseJsonSafe(res: Response) {
-  const ct = res.headers.get("content-type") || "";
-  if (ct.includes("application/json")) return res.json();
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('application/json')) return res.json();
   const text = await res.text();
   return text;
 }
 
 export async function postJson<TResp = any>(url: string, body: unknown): Promise<TResp> {
   const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
 
@@ -18,7 +18,7 @@ export async function postJson<TResp = any>(url: string, body: unknown): Promise
 
   if (!res.ok) {
     const msg =
-      typeof data === "string"
+      typeof data === 'string'
         ? data
         : (data as any)?.error || (data as any)?.message || `HTTP ${res.status}`;
 

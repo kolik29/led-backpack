@@ -11,8 +11,8 @@ const Text = () => {
   const [color, setColor] = useState('#ff0000');
 
   const send = async () => {
-    const speedNum = typeof speed === "number" ? speed : 0;
-    const spacingNum = typeof spacing === "number" ? spacing : 0;
+    const speedNum = typeof speed === 'number' ? speed : 0;
+    const spacingNum = typeof spacing === 'number' ? spacing : 0;
     
     try {
       await sendText({
@@ -29,7 +29,7 @@ const Text = () => {
   }
 
   return <>
-    <div className='wrapper'>
+    <div className="wrapper">
       <TextInput
         label="Text"
         placeholder="Text"

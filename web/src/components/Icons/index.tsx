@@ -1,7 +1,7 @@
-import ICONS from "../../storage/Icons";
-import Frame from "../../types/Frame";
-import Icon from "./Icon";
-import styles from "./index.module.sass";
+import ICONS from '../../storage/Icons';
+import Frame from '../../types/Frame';
+import Icon from './Icon';
+import styles from './index.module.sass';
 
 const Icons = () => {
   return <>

@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
-import { drawFrame } from "../../../helpers/Frame";
-import Frame from "../../../types/Frame";
-import { sendFrame } from "../../../Api/Requests";
+import { useEffect, useRef } from 'react';
+import { drawFrame } from '../../../helpers/Frame';
+import Frame from '../../../types/Frame';
+import { sendFrame } from '../../../Api/Requests';
 
 const Icon = ({ icon, scale = 10 }: { icon: Frame, scale?: number }) => {
   const ref = useRef<HTMLCanvasElement | null>(null);

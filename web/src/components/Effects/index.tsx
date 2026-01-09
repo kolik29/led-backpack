@@ -8,7 +8,7 @@ const Effects = () => {
   const [flashlightColor, setFlashlightColor] = useState('#ffffff');
 
   return <>
-    <div className='wrapper'>
+    <div className="wrapper">
       <Effect label="Color shift" effect="colorshift">
         <div className={styles.inputs}>
           <Select

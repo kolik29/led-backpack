@@ -1,7 +1,7 @@
-import Frame from "../types/Frame";
+import Frame from '../types/Frame';
 
 function hexToRgb(hex: string) {
-  if (!hex || hex[0] !== "#" || hex.length !== 7) return { r: 0, g: 0, b: 0 };
+  if (!hex || hex[0] !== '#' || hex.length !== 7) return { r: 0, g: 0, b: 0 };
   
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
@@ -19,7 +19,7 @@ export function drawFrame(
 ) {
   const { w, h, pixels } = frame;
 
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
   const W = canvas.clientWidth || canvas.width;
@@ -39,7 +39,7 @@ export function drawFrame(
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       const i = y * w + x;
-      const c = pixels[i] ?? "#000000";
+      const c = pixels[i] ?? '#000000';
       const { r, g, b } = hexToRgb(c);
 
       ctx.fillStyle = `rgb(${r},${g},${b})`;
@@ -49,7 +49,7 @@ export function drawFrame(
 
   if (drawGrid && Math.min(cellX, cellY) >= 4) {
     ctx.save();
-    ctx.strokeStyle = "rgba(0,0,0,0.25)";
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)';
     ctx.lineWidth = 1;
 
     ctx.beginPath();
@@ -72,6 +72,6 @@ export function drawFrame(
 }
 
 
-export function emptyFrame(w: number, h: number, color = "#000000"): Frame {
+export function emptyFrame(w: number, h: number, color = '#000000'): Frame {
   return { w, h, pixels: Array.from({ length: w * h }, () => color) };
 }

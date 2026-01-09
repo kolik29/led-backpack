@@ -1,7 +1,7 @@
-import { Button, Slider, Text } from "@mantine/core";
-import { clear, info, ping, reboot, setBrightness as sendBrightness } from "../../Api/Requests";
-import { useState } from "react";
-import styles from "./index.module.sass";
+import { Button, Slider, Text } from '@mantine/core';
+import { clear, info, ping, reboot, setBrightness as sendBrightness } from '../../Api/Requests';
+import { useState } from 'react';
+import styles from './index.module.sass';
 
 const Settings = () => {
   const [text, setText] = useState<any>();
