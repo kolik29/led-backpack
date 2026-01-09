@@ -1,6 +1,6 @@
 import styles from './index.module.sass';
 import Effect from './Effect';
-import { ColorPicker, Select, TextInput } from '@mantine/core';
+import { ColorPicker, NumberInput, Select } from '@mantine/core';
 import { useState } from 'react';
 import { QUICK_COLORS } from '../../storage/Colors';
 
@@ -17,62 +17,53 @@ const Effects = () => {
             data={['global', 'perpixel']}
             defaultValue="global"
           />
-          <TextInput
+          <NumberInput
             label="Change every ms"
             name="changeEveryMs"
-            type="number"
             defaultValue="900"
           />
-          <TextInput
+          <NumberInput
             label="Blend per second"
             name="blendPerSecond"
-            type="number"
             defaultValue="120"
           />
         </div>
       </Effect>
       <Effect label="Fire" effect="fire">
         <div className={styles.inputs}>
-          <TextInput
+          <NumberInput
             label="Cooling"
             name="cooling"
-            type="number"
             defaultValue="55"
           />
-          <TextInput
+          <NumberInput
             label="Sparking"
             name="sparking"
-            type="number"
             defaultValue="120"
           />
-          <TextInput
+          <NumberInput
             label="Step"
             name="stepMs"
-            type="number"
             defaultValue="30"
           />
-          <TextInput
+          <NumberInput
             label="Max Flares"
             name="maxFlares"
-            type="number"
             defaultValue="3"
           />
-          <TextInput
+          <NumberInput
             label="Flare Chance"
             name="flareChance"
-            type="number"
             defaultValue="30"
           />
-          <TextInput
+          <NumberInput
             label="Flare Rows"
             name="flareRows"
-            type="number"
             defaultValue="7"
           />
-          <TextInput
+          <NumberInput
             label="Flare Decay"
             name="flareDecay"
-            type="number"
             defaultValue="14"
           />
         </div>

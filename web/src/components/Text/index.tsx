@@ -1,23 +1,26 @@
-import { ColorPicker, Button, Checkbox, TextInput } from '@mantine/core';
+import { ColorPicker, Button, Checkbox, TextInput, NumberInput } from '@mantine/core';
 import { useState } from 'react';
 import { setText as sendText } from '../../Api/Requests';
 import { QUICK_COLORS } from '../../storage/Colors';
 
 const Text = () => {
   const [text, setText] = useState('');
-  const [speed, setSpeed] = useState('3');
-  const [spacing, setSpacing] = useState('0');
+  const [speed, setSpeed] = useState<string | number>(3);
+  const [spacing, setSpacing] = useState<string | number>(0);
   const [scroll, setScroll] = useState(true);
   const [color, setColor] = useState('#ff0000');
 
   const send = async () => {
+    const speedNum = typeof speed === "number" ? speed : 0;
+    const spacingNum = typeof spacing === "number" ? spacing : 0;
+    
     try {
       await sendText({
         text: text,
         color: color,
-        speed: parseInt(speed),
+        speed: speedNum,
         scroll: scroll,
-        spacing: parseInt(spacing),
+        spacing: spacingNum,
         y: 3
       });
     } catch (e) {
@@ -34,21 +37,19 @@ const Text = () => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <TextInput
+      <NumberInput
         label="Speed"
-        type="number"
         placeholder="Speed"
         name="speed"
         value={speed}
-        onChange={(e) => setSpeed(e.target.value)}
+        onChange={setSpeed}
       />
-      <TextInput
+      <NumberInput
         label="Spacing"
-        type="number"
         placeholder="Spacing"
         name="spacing"
         value={spacing}
-        onChange={(e) => setSpacing(e.target.value)}
+        onChange={setSpacing}
       />
       <Checkbox
         defaultChecked
