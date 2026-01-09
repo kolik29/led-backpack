@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Frame from '../../types/Frame';
 import { drawFrame, emptyFrame } from '../../helpers/Frame';
-import { ActionIcon, Button, ColorPicker, Tooltip } from '@mantine/core';
+import { ActionIcon, Button, ColorPicker, TextInput, Tooltip } from '@mantine/core';
 import { IconPencil, IconEraser } from '@tabler/icons-react';
 import styles from './index.module.sass';
 import { sendFrame } from '../../Api/Requests';
@@ -173,6 +173,7 @@ const Editor = () => {
         onChange={setColor}
         swatches={QUICK_COLORS}
       />
+      <TextInput value={color} onChange={e => setColor(e.target.value)}></TextInput>
 
       <div className={styles.actions}>
         <Button variant="light" onClick={clear}>Clear</Button>
