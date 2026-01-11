@@ -2,8 +2,9 @@ import { Box, Button, Collapse, Group } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks';
 import styles from './index.module.sass';
 import { setEffect } from '../../../Api/Requests';
+import EffectProps from '../../../types/EffectProps';
 
-const Effect = ({label = '', effect, children}: {label: string, effect: 'flashlight' | 'colorshift' | 'fire', children?: React.ReactNode}) => {
+const Effect = ({label = '', effect, children}: EffectProps) => {
   const [opened, { toggle }] = useDisclosure(false);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

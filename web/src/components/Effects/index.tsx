@@ -1,11 +1,13 @@
 import styles from './index.module.sass';
 import Effect from './Effect';
-import { ColorPicker, NumberInput, Select } from '@mantine/core';
+import { Checkbox, ColorPicker, NumberInput, Select } from '@mantine/core';
 import { useState } from 'react';
 import { QUICK_COLORS } from '../../storage/Colors';
 
 const Effects = () => {
   const [flashlightColor, setFlashlightColor] = useState('#ffffff');
+  const [sparklesColor, setSparklesColor] = useState('#ffffff');
+  const [matrixRainColor, setMatrixRainColor] = useState('#00ff00');
 
   return <>
     <div className="wrapper">
@@ -78,6 +80,98 @@ const Effects = () => {
             swatches={QUICK_COLORS}
           />
           <input type="hidden" name="color" value={flashlightColor} />
+        </div>
+      </Effect>
+      <Effect label="Sparkles" effect="sparkles">
+        <div className={styles.inputs}>
+          <NumberInput
+            label="Spawn per second"
+            name="spawnPerSecond"
+            defaultValue="55"
+          />
+          <NumberInput
+            label="fadePerSecond"
+            name="fadePerSecond"
+            defaultValue="260"
+          />
+          <Checkbox
+            defaultChecked
+            label="Random colors"
+            name="randomColors"
+          />
+          <ColorPicker
+            format="hex"
+            defaultValue="#ffffff"
+            value={sparklesColor}
+            onChange={setSparklesColor}
+            swatches={QUICK_COLORS}
+          />
+          <input type="hidden" name="color" value={sparklesColor} />
+        </div>
+      </Effect>
+      <Effect label="Plasma" effect="plasma">
+        <div className={styles.inputs}>
+          <NumberInput
+            label="Speed"
+            name="speed"
+            defaultValue="2"
+          />
+          <NumberInput
+            label="Scale"
+            name="scale"
+            defaultValue="26"
+          />
+        </div>
+      </Effect>
+      <Effect label="Noise" effect="noise">
+        <div className={styles.inputs}>
+          <NumberInput
+            label="Speed"
+            name="speed"
+            defaultValue="5"
+          />
+          <NumberInput
+            label="Scale"
+            name="scale"
+            defaultValue="35"
+          />
+          <NumberInput
+            label="Contrast"
+            name="contrast"
+            defaultValue="255"
+          />
+        </div>
+      </Effect>
+      <Effect label="Matrix rain" effect="matrixrain">
+        <div className={styles.inputs}>
+          <NumberInput
+            label="Trail"
+            name="trail"
+            defaultValue="70"
+          />
+          <NumberInput
+            label="Spawn chance"
+            name="spawnChance"
+            defaultValue="70"
+          />
+          <NumberInput
+            label="Min step"
+            name="minStepMs"
+            defaultValue="45"
+          />
+          <NumberInput
+            label="Max step"
+            name="maxStepMs"
+            defaultValue="110"
+          />
+          <ColorPicker
+            format="hex"
+            defaultValue="#00ff00"
+            value={matrixRainColor}
+            onChange={setMatrixRainColor}
+            swatches={QUICK_COLORS}
+          />
+          <input type="hidden" name="color" value={matrixRainColor} />
         </div>
       </Effect>
     </div>

@@ -159,6 +159,10 @@ void ApiHandlers::handleMode_() {
     if (e == "fire") renderer_.setEffect(EffectMode::Id::Fire);
     else if (e == "colorshift") renderer_.setEffect(EffectMode::Id::ColorShift);
     else if (e == "flashlight") renderer_.setEffect(EffectMode::Id::Flashlight);
+    else if (e == "sparkles") renderer_.setEffect(EffectMode::Id::Sparkles);
+    else if (e == "plasma") renderer_.setEffect(EffectMode::Id::Plasma);
+    else if (e == "noise") renderer_.setEffect(EffectMode::Id::Noise);
+    else if (e == "matrixrain") renderer_.setEffect(EffectMode::Id::MatrixRain);
     else {
       sendJson_(400, "{\"ok\":false,\"error\":\"unknown effect\"}");
       return;
@@ -241,6 +245,25 @@ void ApiHandlers::handleEffect_() {
     if (v < lo) return lo;
     if (v > hi) return hi;
     return v;
+  };
+
+  auto readBool = [&](JsonObject p, const char* key, bool def) -> bool {
+    if (!p.containsKey(key)) return def;
+
+    JsonVariant v = p[key];
+
+    if (v.is<bool>()) return v.as<bool>();
+
+    if (v.is<const char*>()) {
+      String s = String((const char*)v.as<const char*>());
+      s.trim();
+      s.toLowerCase();
+
+      if (s == "on" || s == "true" || s == "1" || s == "yes") return true;
+      if (s == "off" || s == "false" || s == "0" || s == "no") return false;
+    }
+
+    return def;
   };
 
   if (e == "fire") {
@@ -339,6 +362,112 @@ void ApiHandlers::handleEffect_() {
         b = clampInt(b, 0, 255);
 
         renderer_.effects().flashlight().setColor(CRGB((uint8_t)r, (uint8_t)g, (uint8_t)b));
+      }
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
+  if (e == "sparkles") {
+    renderer_.setEffect(EffectMode::Id::Sparkles);
+
+    if (hasParams) {
+      int spawnPerSecond = params["spawnPerSecond"] | 55;
+      int fadePerSecond  = params["fadePerSecond"]  | 260;
+      bool randomColors = readBool(params, "randomColors", false);
+
+      const char* c = params["color"] | "#ffffff";
+      CRGB color;
+      if (!parseHexColor_(c, color)) {
+        sendJson_(400, "{\"ok\":false,\"error\":\"Bad color\"}");
+        return;
+      }
+
+      if (spawnPerSecond < 0) spawnPerSecond = 0;
+      if (spawnPerSecond > 300) spawnPerSecond = 300;
+
+      if (fadePerSecond < 1) fadePerSecond = 1;
+      if (fadePerSecond > 2000) fadePerSecond = 2000;
+
+      renderer_.effects().sparkles().setSpawnPerSecond((uint16_t)spawnPerSecond);
+      renderer_.effects().sparkles().setFadePerSecond((uint16_t)fadePerSecond);
+      renderer_.effects().sparkles().setRandomColors(randomColors);
+      renderer_.effects().sparkles().setColor(color);
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
+  if (e == "plasma") {
+    renderer_.effects().setEffectByName("plasma", display_);
+    renderer_.setMode(RenderMgr::Mode::Effect);
+
+    if (hasParams) {
+      int speed = params["speed"] | 10;
+      int scale = params["scale"] | 28;
+
+      speed = clampInt(speed, 1, 50);
+      scale = clampInt(scale, 4, 80);
+
+      renderer_.effects().plasma().setSpeed((uint8_t)speed);
+      renderer_.effects().plasma().setScale((uint8_t)scale);
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
+  if (e == "noise") {
+    renderer_.effects().setEffectByName("noise", display_);
+    renderer_.setMode(RenderMgr::Mode::Effect);
+
+    if (hasParams) {
+      int speed = params["speed"] | 45;
+      int scale = params["scale"] | 30;
+      int contrast = params["contrast"] | 160;
+
+      speed = clampInt(speed, 1, 500);
+      scale = clampInt(scale, 5, 120);
+      contrast = clampInt(contrast, 1, 255);
+
+      renderer_.effects().noise().setSpeed((uint16_t)speed);
+      renderer_.effects().noise().setScale((uint8_t)scale);
+      renderer_.effects().noise().setContrast((uint8_t)contrast);
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
+  if (e == "matrixrain" || e == "matrix_rain") {
+    renderer_.effects().setEffectByName("matrixrain", display_);
+    renderer_.setMode(RenderMgr::Mode::Effect);
+
+    if (hasParams) {
+      int trail = params["trail"] | 8;
+      int spawnChance = params["spawnChance"] | 60;
+      int minStepMs = params["minStepMs"] | 45;
+      int maxStepMs = params["maxStepMs"] | 120;
+
+      trail = clampInt(trail, 1, 32);
+      spawnChance = clampInt(spawnChance, 0, 255);
+      minStepMs = clampInt(minStepMs, 1, 1000);
+      maxStepMs = clampInt(maxStepMs, 1, 1000);
+
+      renderer_.effects().matrixRain().setTrail((uint8_t)trail);
+      renderer_.effects().matrixRain().setSpawnChance((uint8_t)spawnChance);
+      renderer_.effects().matrixRain().setMinStepMs((uint16_t)minStepMs);
+      renderer_.effects().matrixRain().setMaxStepMs((uint16_t)maxStepMs);
+
+      if (params["color"].is<const char*>()) {
+        CRGB cc;
+        if (!parseHexColor_(params["color"], cc)) {
+          sendJson_(400, "{\"ok\":false,\"error\":\"Bad color\"}");
+          return;
+        }
+        renderer_.effects().matrixRain().setColor(cc);
       }
     }
 

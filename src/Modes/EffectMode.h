@@ -7,6 +7,10 @@
 #include "Effects/FlashlightEffect.h"
 #include "Effects/ColorShiftEffect.h"
 #include "Effects/FireEffect.h"
+#include "Effects/SparklesEffect.h"
+#include "Effects/PlasmaEffect.h"
+#include "Effects/NoiseEffect.h"
+#include "Effects/MatrixRainEffect.h"
 
 class EffectMode {
 public:
@@ -14,6 +18,10 @@ public:
     Flashlight,
     ColorShift,
     Fire,
+    Sparkles,
+    Plasma,
+    Noise,
+    MatrixRain
   };
   
   void setEffect(Id id, Display& display);
@@ -28,6 +36,10 @@ public:
   FireEffect& fire() { return fire_; }
   ColorShiftEffect& colorShift() { return colorShift_; }
   FlashlightEffect& flashlight() { return flashlight_; }
+  SparklesEffect& sparkles() { return sparkles_; }
+  PlasmaEffect& plasma() { return plasma_; }
+  NoiseEffect& noise() { return noise_; }
+  MatrixRainEffect& matrixRain() { return matrixRain_; }
 
 private:
   Id currentId_ = Id::Flashlight;
@@ -38,6 +50,10 @@ private:
   FlashlightEffect flashlight_;
   ColorShiftEffect colorShift_;
   FireEffect fire_;
+  SparklesEffect sparkles_;
+  PlasmaEffect plasma_;
+  NoiseEffect noise_;
+  MatrixRainEffect matrixRain_;
 
   IEffect* byId_(Id id);
 };

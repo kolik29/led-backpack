@@ -5,6 +5,10 @@ IEffect* EffectMode::byId_(Id id) {
     case Id::Flashlight: return &flashlight_;
     case Id::ColorShift: return &colorShift_;
     case Id::Fire: return &fire_;
+    case Id::Sparkles: return &sparkles_;
+    case Id::Plasma: return &plasma_;
+    case Id::Noise: return &noise_;
+    case Id::MatrixRain: return &matrixRain_;
   }
   return &flashlight_;
 }
@@ -41,6 +45,22 @@ bool EffectMode::setEffectByName(const String& name, Display& display) {
   }
   if (name == "fire") {
     setEffect(Id::Fire, display);
+    return true;
+  }
+  if (name == "sparkles") {
+    setEffect(Id::Sparkles, display);
+    return true;
+  }
+  if (name == "plasma") {
+    setEffect(Id::Plasma, display);
+    return true;
+  }
+  if (name == "noise") {
+    setEffect(Id::Noise, display);
+    return true;
+  }
+  if (name == "matrixrain") {
+    setEffect(Id::MatrixRain, display);
     return true;
   }
   return false;
