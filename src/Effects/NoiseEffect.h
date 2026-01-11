@@ -14,13 +14,12 @@ public:
   void setContrast(uint8_t v) { contrast_ = v; }
 
 private:
-  uint16_t z_ = 0;
-  uint16_t xoff_ = 0;
-  uint16_t yoff_ = 0;
-
-  uint16_t speed_ = 45;
-  uint8_t scale_ = 30;
+  uint16_t speed_ = 5;
+  uint8_t scale_ = 35;
   uint8_t contrast_ = 160;
 
-  CRGBPalette16 palette_ = PartyColors_p;
+  uint16_t z_ = 0;
+  uint16_t hueZ_ = 0;
+  uint16_t xoff_ = 0;
+  uint16_t yoff_ = 0;
 };
