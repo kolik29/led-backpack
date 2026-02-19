@@ -37,7 +37,7 @@ private:
   uint8_t height_ = 8;
   bool serpentine_ = true;
 
-  uint8_t brightness_ = 64;
+  uint8_t brightness_ = 255;
   CRGB leds_[MAX_LEDS];
 
   bool flipX_ = false;
