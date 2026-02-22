@@ -9,6 +9,7 @@ IEffect* EffectMode::byId_(Id id) {
     case Id::Plasma: return &plasma_;
     case Id::Noise: return &noise_;
     case Id::MatrixRain: return &matrixRain_;
+    case Id::Snake: return &snake_;
   }
   return &flashlight_;
 }
@@ -61,6 +62,10 @@ bool EffectMode::setEffectByName(const String& name, Display& display) {
   }
   if (name == "matrixrain") {
     setEffect(Id::MatrixRain, display);
+    return true;
+  }
+  if (name == "snake") {
+    setEffect(Id::Snake, display);
     return true;
   }
   return false;

@@ -163,6 +163,7 @@ void ApiHandlers::handleMode_() {
     else if (e == "plasma") renderer_.setEffect(EffectMode::Id::Plasma);
     else if (e == "noise") renderer_.setEffect(EffectMode::Id::Noise);
     else if (e == "matrixrain") renderer_.setEffect(EffectMode::Id::MatrixRain);
+    else if (e == "snake") renderer_.setEffect(EffectMode::Id::Snake);
     else {
       sendJson_(400, "{\"ok\":false,\"error\":\"unknown effect\"}");
       return;
@@ -469,6 +470,35 @@ void ApiHandlers::handleEffect_() {
         }
         renderer_.effects().matrixRain().setColor(cc);
       }
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
+  if (e == "snake") {
+    renderer_.effects().setEffectByName("snake", display_);
+    renderer_.setMode(RenderMgr::Mode::Effect);
+
+    if (hasParams) {
+      int stepMs = params["stepMs"] | 130;
+      int length = params["len"] | 4;
+      const char* snakeColor = params["snakeColor"] | "#00ff00";
+      const char* foodColor = params["foodColor"] | "#ff0000";
+
+      stepMs = clampInt(stepMs, 1, 1000);
+      length = clampInt(length, 1, 32);
+
+      renderer_.effects().snake().setStepMs((uint16_t)stepMs);
+      renderer_.effects().snake().setLength((uint16_t)length);
+
+      CRGB sc, fc;
+      if (!parseHexColor_(snakeColor, sc) || !parseHexColor_(foodColor, fc)) {
+        sendJson_(400, "{\"ok\":false,\"error\":\"Bad color\"}");
+        return;
+      }
+      renderer_.effects().snake().setSnakeColor(sc);
+      renderer_.effects().snake().setFoodColor(fc);
     }
 
     sendJson_(200, "{\"ok\":true}");
