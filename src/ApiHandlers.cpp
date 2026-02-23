@@ -505,6 +505,32 @@ void ApiHandlers::handleEffect_() {
     return;
   }
 
+  if (e == "pong") {
+    renderer_.setEffect(EffectMode::Id::Pong);
+
+    if (hasParams) {
+      int stepMs = params["stepMs"] | 45;
+      stepMs = clampInt(stepMs, 15, 300);
+      renderer_.effects().pong().setStepMs((uint16_t)stepMs);
+
+      int paddleSize = params["paddleSize"] | 5;
+      paddleSize = clampInt(paddleSize, 2, 12);
+      renderer_.effects().pong().setPaddleSize((uint8_t)paddleSize);
+
+      if (params["ballColor"].is<const char*>()) {
+        CRGB c;
+        if (parseHexColor_(params["ballColor"], c)) renderer_.effects().pong().setBallColor(c);
+      }
+      if (params["paddleColor"].is<const char*>()) {
+        CRGB c;
+        if (parseHexColor_(params["paddleColor"], c)) renderer_.effects().pong().setPaddleColor(c);
+      }
+    }
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+  }
+
   sendJson_(400, "{\"ok\":false,\"error\":\"unknown effect\"}");
 }
 

@@ -1,6 +1,6 @@
 type EffectProps = {
   label: string;
-  effect: 'flashlight' | 'colorshift' | 'fire' | 'sparkles' | 'plasma' | 'noise' | 'matrixrain' | 'snake';
+  effect: 'flashlight' | 'colorshift' | 'fire' | 'sparkles' | 'plasma' | 'noise' | 'matrixrain' | 'snake' | 'ping';
   fields?: EffectPropsField[];
 }
 

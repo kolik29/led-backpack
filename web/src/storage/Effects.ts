@@ -30,7 +30,7 @@ const EFFECTS = [
     'effect': 'sparkles',
     'fields': [
       { 'type': 'number', 'name': 'spawnPerSecond', 'label': 'Spawn per second', 'defaultValue': 30 },
-      { 'type': 'number', 'name': 'fadePerSecond', 'label': 'fadePerSecond', 'defaultValue': 220 },
+      { 'type': 'number', 'name': 'fadePerSecond', 'label': 'Fade per second', 'defaultValue': 220 },
       { 'type': 'checkbox', 'name': 'randomColors', 'label': 'Random colors', 'defaultValue': true },
       { 'type': 'color', 'name': 'color', 'label': 'Color', 'defaultValue': '#ffffff' },
     ],
@@ -64,11 +64,21 @@ const EFFECTS = [
     'label': 'Snake',
     'effect': 'snake',
     'fields': [
-      { 'type': 'number', 'name': 'stepMs', 'label': 'stepMs', 'defaultValue': 140 },
-      { 'type': 'number', 'name': 'len', 'label': 'length', 'defaultValue': 4 },
-      { 'type': 'color', 'name': 'snakeColor', 'label': 'Color', 'defaultValue': '#00ff00' },
-      { 'type': 'color', 'name': 'foodColor', 'label': 'Color', 'defaultValue': '#ff0000' }
+      { 'type': 'number', 'name': 'stepMs', 'label': 'Step (ms)', 'defaultValue': 140 },
+      { 'type': 'number', 'name': 'len', 'label': 'Length', 'defaultValue': 4 },
+      { 'type': 'color', 'name': 'snakeColor', 'label': 'Snake color', 'defaultValue': '#00ff00' },
+      { 'type': 'color', 'name': 'foodColor', 'label': 'Food color', 'defaultValue': '#ff0000' }
     ],
+  },
+  {
+    'label': 'Pong',
+    'effect': 'pong',
+    'fields': [
+      { 'type': 'number', 'name': 'stepMs', 'label': 'Step (ms)', 'defaultValue': 45 },
+      { 'type': 'number', 'name': 'paddleSize', 'label': 'Paddle size', 'defaultValue': 5 },
+      { 'type': 'color', 'name': 'ballColor', 'label': 'Ball color', 'defaultValue': '#00ff00' },
+      { 'type': 'color', 'name': 'paddleColor', 'label': 'Paddle color', 'defaultValue': '#ff0000' }
+    ]
   }
 ]
 
