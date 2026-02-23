@@ -52,15 +52,15 @@ const Settings = () => {
       <div className={styles.brightness}>
         <Slider
           color="blue"
-          defaultValue={32}
+          defaultValue={64}
           onChangeEnd={onBrightness}
-          max={64}
+          max={255}
           marks={[
             { value: 0, label: '0%' },
-            { value: 16, label: '25%' },
-            { value: 32, label: '50%' },
-            { value: 48, label: '75%' },
-            { value: 64, label: '100%' },
+            { value: 64, label: '25%' },
+            { value: 127, label: '50%' },
+            { value: 192, label: '75%' },
+            { value: 255, label: '100%' },
           ]}
         />
       </div>
