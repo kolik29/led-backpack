@@ -442,7 +442,7 @@ void ApiHandlers::handleEffect_() {
     return;
   }
 
-  if (e == "matrixrain" || e == "matrix_rain") {
+  if (e == "matrixrain") {
     renderer_.effects().setEffectByName("matrixrain", display_);
     renderer_.setMode(RenderMgr::Mode::Effect);
 
@@ -529,6 +529,50 @@ void ApiHandlers::handleEffect_() {
 
     sendJson_(200, "{\"ok\":true}");
     return;
+  }
+
+  if (e == "bike") {
+    renderer_.setEffect(EffectMode::Id::Bike);
+
+    BikeEffect::Mode m = BikeEffect::Mode::Blink;
+    bool brake = false;
+
+    if (hasParams) {
+      // mode: "solid" | "blink" | "double"
+      if (params["mode"].is<const char*>()) {
+        String s = String((const char*)params["mode"]);
+        s.trim();
+        s.toLowerCase();
+
+        if (s == "solid") m = BikeEffect::Mode::Solid;
+        else if (s == "blink") m = BikeEffect::Mode::Blink;
+        else if (s == "double") m = BikeEffect::Mode::Double;
+        else {
+          sendJson_(400, "{\"ok\":false,\"error\":\"bike.mode must be solid|blink|double\"}");
+          return;
+        }
+      }
+
+      if (params.containsKey("brake")) {
+        if (params["brake"].is<bool>()) {
+          brake = params["brake"].as<bool>();
+        } else if (params["brake"].is<const char*>()) {
+          String bs = String((const char*)params["brake"]);
+          bs.trim();
+          bs.toLowerCase();
+          brake = (bs == "true" || bs == "1" || bs == "on" || bs == "yes");
+        } else if (params["brake"].is<int>()) {
+          brake = (params["brake"].as<int>() != 0);
+        }
+      }
+    }
+
+    renderer_.effects().bike().setMode(m);
+    renderer_.effects().bike().setBrakeTest(brake);
+
+    sendJson_(200, "{\"ok\":true}");
+    return;
+
   }
 
   sendJson_(400, "{\"ok\":false,\"error\":\"unknown effect\"}");

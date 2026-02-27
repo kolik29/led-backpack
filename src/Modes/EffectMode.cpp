@@ -11,6 +11,7 @@ IEffect* EffectMode::byId_(Id id) {
     case Id::MatrixRain: return &matrixRain_;
     case Id::Snake: return &snake_;
     case Id::Pong: return &pong_;
+    case Id::Bike: return &bike_;
   }
   return &flashlight_;
 }
@@ -71,6 +72,10 @@ bool EffectMode::setEffectByName(const String& name, Display& display) {
   }
   if (name == "pong") {
     setEffect(Id::Pong, display);
+    return true;
+  }
+  if (name == "bike") {
+    setEffect(Id::Bike, display);
     return true;
   }
   return false;

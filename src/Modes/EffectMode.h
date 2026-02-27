@@ -13,6 +13,7 @@
 #include "Effects/MatrixRainEffect.h"
 #include "Effects/SnakeEffect.h"
 #include "Effects/PongEffect.h"
+#include "Effects/BikeEffect.h"
 
 class EffectMode {
 public:
@@ -25,7 +26,8 @@ public:
     Noise,
     MatrixRain,
     Snake,
-    Pong
+    Pong,
+    Bike
   };
   
   void setEffect(Id id, Display& display);
@@ -46,6 +48,7 @@ public:
   MatrixRainEffect& matrixRain() { return matrixRain_; }
   SnakeEffect& snake() { return snake_; }
   PongEffect& pong() { return pong_; }
+  BikeEffect& bike() { return bike_; }
 
 private:
   Id currentId_ = Id::Flashlight;
@@ -62,6 +65,7 @@ private:
   MatrixRainEffect matrixRain_;
   SnakeEffect snake_;
   PongEffect pong_;
+  BikeEffect bike_;
 
   IEffect* byId_(Id id);
 };
