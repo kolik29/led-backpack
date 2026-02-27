@@ -5,14 +5,7 @@ const AppConfig::Wifi& AppConfig::wifi() {
     .apSsid = "ESP32-Setup",
     .apPass = "12345678",
 
-    .staSsid = "KoliK",
-    .staPass = "58969366",
-
-    .staConnectTimeoutMs = 15000,
-    .reconnectIntervalMs = 5000,
-
-    .enableAp = true,
-    .enableSta = true
+    .enableAp = true
   };
 
   return cfg;
