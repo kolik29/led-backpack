@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Wire.h>
 
 #include "AppConfig.h"
 #include "WifiMgr.h"
@@ -14,6 +15,9 @@ WebServerMgr web(display, renderer, 80);
 void setup() {
   Serial.begin(115200);
   delay(200);
+
+  Wire.begin(21, 20);
+  Wire.setClock(100000);
 
   display.begin();
   display.clear(true);
