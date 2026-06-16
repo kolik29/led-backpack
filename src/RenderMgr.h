@@ -25,8 +25,11 @@ public:
   void tick();
 
 private:
+  static constexpr uint32_t FRAME_INTERVAL_MS = 80;
+
   Display& display_;
   Mode mode_ = Mode::Frame;
   TextMode text_;
   EffectMode effects_;
+  uint32_t lastFrameMs_ = 0;
 };

@@ -13,11 +13,13 @@ public:
   WebServerMgr(Display& display, RenderMgr& renderer, uint16_t port = 80);
 
   void begin();
-  void tick();
+  void tick(bool enabled);
+  void stop();
 
 private:
   WebServer server_;
   ApiHandlers api_;
+  bool running_ = false;
 
   void handleNotFound_();
   bool serveFile_(String path);

@@ -3,7 +3,13 @@
 RenderMgr::RenderMgr(Display& display) : display_(display) {}
 
 void RenderMgr::setMode(Mode mode) {
+  Mode prev = mode_;
+  if (prev == Mode::Effect && mode != Mode::Effect) {
+    effects_.end(display_);
+  }
+
   mode_ = mode;
+  lastFrameMs_ = 0;
 
   if (mode_ == Mode::Text) {
     text_.reset();
@@ -27,11 +33,22 @@ EffectMode& RenderMgr::effects() {
 }
 
 void RenderMgr::setEffect(EffectMode::Id id) {
+  lastFrameMs_ = 0;
   mode_ = Mode::Effect;
   effects_.setEffect(id, display_);
 }
 
 void RenderMgr::tick() {
+  if (mode_ == Mode::Frame) {
+    return;
+  }
+
+  uint32_t now = millis();
+  if (lastFrameMs_ != 0 && now - lastFrameMs_ < FRAME_INTERVAL_MS) {
+    return;
+  }
+  lastFrameMs_ = now;
+
   if (mode_ == Mode::Text) {
     text_.tick(display_);
     return;

@@ -32,6 +32,7 @@ public:
   
   void setEffect(Id id, Display& display);
   Id effect() const { return currentId_; }
+  void end(Display& display);
 
   void tick(Display& display);
 

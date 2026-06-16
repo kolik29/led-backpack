@@ -12,7 +12,11 @@ WifiMgr wifi(AppConfig::wifi());
 RenderMgr renderer(display);
 WebServerMgr web(display, renderer, 80);
 
+static constexpr uint32_t CPU_FREQ_MHZ = 80;
+
 void setup() {
+  setCpuFrequencyMhz(CPU_FREQ_MHZ);
+
   Serial.begin(115200);
   delay(200);
 
@@ -23,15 +27,17 @@ void setup() {
   display.clear(true);
 
   wifi.begin();
-  web.begin();
+  if (wifi.isActive()) {
+    web.begin();
+  }
 
   Serial.println("Ready");
 }
 
 void loop() {
   wifi.tick();
-  web.tick();
+  web.tick(wifi.isActive());
   renderer.tick();
 
-  delay(1);
+  delay(wifi.isActive() ? 5 : 20);
 }

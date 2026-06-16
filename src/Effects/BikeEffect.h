@@ -9,6 +9,7 @@ public:
   enum class Mode : uint8_t { Solid = 0, Blink = 1, Double = 2 };
 
   void begin(Display& display) override;
+  void end(Display& display) override;
   void tick(Display& display, uint32_t dtMs) override;
   const char* name() const override { return "bike"; }
 

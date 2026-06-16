@@ -17,10 +17,21 @@ IEffect* EffectMode::byId_(Id id) {
 }
 
 void EffectMode::setEffect(Id id, Display& display) {
+  if (current_ && currentId_ != id) {
+    current_->end(display);
+  }
+
   currentId_ = id;
   current_ = byId_(id);
   lastMs_ = millis();
   current_->begin(display);
+}
+
+void EffectMode::end(Display& display) {
+  if (!current_) return;
+
+  current_->end(display);
+  current_ = nullptr;
 }
 
 void EffectMode::tick(Display& display) {

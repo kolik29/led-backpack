@@ -22,11 +22,27 @@ void WebServerMgr::begin() {
   server_.onNotFound([this]() { handleNotFound_(); });
 
   server_.begin();
+  running_ = true;
   Serial.println("HTTP server started");
 }
 
-void WebServerMgr::tick() {
+void WebServerMgr::tick(bool enabled) {
+  if (!running_) return;
+
+  if (!enabled) {
+    stop();
+    return;
+  }
+
   server_.handleClient();
+}
+
+void WebServerMgr::stop() {
+  if (!running_) return;
+
+  server_.stop();
+  running_ = false;
+  Serial.println("HTTP server stopped");
 }
 
 void WebServerMgr::handleNotFound_() {

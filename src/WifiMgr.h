@@ -10,17 +10,22 @@ public:
 
   void begin();
   void tick();
+  bool isActive() const;
 
   bool isStaConnected() const;
   IPAddress apIp() const;
   IPAddress staIp() const;
 
 private:
+  static constexpr uint32_t AP_LIFETIME_MS = 5UL * 60UL * 1000UL;
+
   AppConfig::Wifi cfg_;
 
-  uint32_t lastReconnectTryMs_ = 0;
+  uint32_t apStartedMs_ = 0;
+  bool apActive_ = false;
 
   void startAp_();
+  void stopAp_();
   bool connectStaOnce_(uint32_t timeoutMs);
   void printInfo_() const;
 };

@@ -16,6 +16,13 @@ void BikeEffect::begin(Display& /*display*/) {
   accelInit_();
 }
 
+void BikeEffect::end(Display& /*display*/) {
+  if (mpuOk_) {
+    mpu_.sleep();
+  }
+  mpuOk_ = false;
+}
+
 void BikeEffect::accelInit_() {
   mpuOk_ = mpu_.begin(Wire, 0x68);
   if (!mpuOk_) {

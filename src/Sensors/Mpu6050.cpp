@@ -21,6 +21,12 @@ bool Mpu6050::begin(TwoWire& wire, uint8_t addr) {
   return true;
 }
 
+void Mpu6050::sleep() {
+  if (!wire_) return;
+
+  writeReg_(0x6B, 0x40);
+}
+
 bool Mpu6050::calibrate(uint16_t samples, uint16_t delayMs) {
   if (!wire_) return false;
 

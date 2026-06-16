@@ -2,10 +2,13 @@
 #include <Display.h>
 
 void FlashlightEffect::begin(Display& display) {
+  dirty_ = true;
   render_(display);
 }
 
 void FlashlightEffect::tick(Display& display, uint32_t /*dtMs*/) {
+  if (!dirty_) return;
+
   render_(display);
 }
 
@@ -19,4 +22,5 @@ void FlashlightEffect::render_(Display& display) {
   }
 
   display.show();
+  dirty_ = false;
 }

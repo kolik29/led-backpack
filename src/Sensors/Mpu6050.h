@@ -6,6 +6,7 @@
 class Mpu6050 {
 public:
   bool begin(TwoWire& wire = Wire, uint8_t addr = 0x68);
+  void sleep();
 
   // прочитать ускорение в "g" (float)
   bool readAccelG(float& ax, float& ay, float& az);
